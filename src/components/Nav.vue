@@ -7,7 +7,7 @@
             <nav>
                 <ul>
                     <li>
-                        <a>
+                        <a class="text-red-500">
                             HOME
                         </a>
                     </li>
@@ -70,7 +70,14 @@
 </template>
 
 <script>
+   import Modal from './partials/Modal';
+   import Currency from './Currency';
+    
     export default {
+        components: {
+            Modal, Currency
+        },
+
         props: { 
             cart: {
                 type: Array,

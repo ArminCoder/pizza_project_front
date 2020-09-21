@@ -71,7 +71,14 @@
 </template>
 
 <script>
+import Modal from './partials/Modal';
+import Pizza from './Pizza';
+
 export default {
+    components: {
+        Modal, Pizza
+    },
+
     props: {
         pizzas: {
             type: Array,

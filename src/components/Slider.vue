@@ -33,9 +33,10 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import 'vueperslides/dist/vueperslides.css';
+import Modal from './partials/Modal.vue';
 
 export default {
-    components: { VueperSlides, VueperSlide },
+    components: { VueperSlides, VueperSlide, Modal },
 
     props: {
         pizzas: {
