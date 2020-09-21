@@ -17,11 +17,11 @@
                 {{chosenPizza.name}}
             </template>
             <template v-slot:content>
-                <div class="d-flex p-4 mr-4">
+                <div class="flex p-4 mr-4">
                     <div class="w-50">
                         <img style="max-width: 100%" :src="chosenPizza.image" alt="">
                     </div>
-                    <div class="d-flex w-50 pt-4 mt-4 flex-column align-items-start justify-content-start text-left ml-4 pl-4">
+                    <div class="flex w-50 pt-4 mt-4 flex-col align-start justify-start text-left ml-4 pl-4">
                         {{chosenPizza.description}}
                     </div>
                 </div>

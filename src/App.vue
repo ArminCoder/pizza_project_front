@@ -104,7 +104,7 @@ import {eventBus} from './main';
 
 <style lang='scss'>
 body {
-    background: url(/images/BG.jpg);
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/images/BG.jpg);
     margin: 0px;
     padding: 0px;
     font-family: hansen;
@@ -307,7 +307,7 @@ iframe {
 
 .bestdisheswrapper {
     min-height: 442px;
-    background: url(/images/www3.jpg) no-repeat center center fixed;
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(/images/www3.jpg) no-repeat center center fixed;
     background-size: cover;
     border-top: 3px solid rgba(255, 153, 0, 0.2);
     border-bottom: 3px solid rgba(255, 153, 0, 0.4);

@@ -45,10 +45,10 @@
                     Your Shopping Cart
                 </template>
                 <template v-slot:content>
-                    <span class="d-flex pl-4" v-if="!cart.length">
+                    <span class="flex pl-4" v-if="!cart.length">
                         You currently don't have any items in your shopping cart...
                     </span>
-                    <div v-else  class="d-flex" v-for="(item, index) in cart" :key="index">
+                    <div v-else  class="flex" v-for="(item, index) in cart" :key="index">
                         <div>
                             <img :src="item.image" alt="">
                         </div>

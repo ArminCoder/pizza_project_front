@@ -7,7 +7,7 @@
                 aria-describedby="modalDescription"
             >
             <header
-                class="modal-header d-flex justify-content-center align-items-center position-relative text-info font-weight-bold"
+                class="modal-header flex justify-center align-center position-relative text-info font-weight-bold"
                 id="modalTitle"
             >
                 <slot name="title">
@@ -34,7 +34,7 @@
                 <slot name="footer">
                 <button
                     type="button"
-                    class="btn btn-info px-4 py-2 "
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded px-4 py-2 "
                     @click="close"
                     aria-label="Close modal"
                 >
