@@ -48,20 +48,8 @@
                     <span class="flex pl-4" v-if="!cart.length">
                         You currently don't have any items in your shopping cart...
                     </span>
-                    <div v-else  class="flex" v-for="(item, index) in cart" :key="index">
-                        <div>
-                            <img :src="item.image" alt="">
-                        </div>
-                        <div>
-                            <span>
-                                {{item.name}}
-                            </span>
-                            <br>
-                            <span>
-                                {{item.price ? item.price.toFixed(2) : null }} {{activeCurrency.currency}}
-                            </span>
-
-                        </div>
+                    <div v-else>
+                        <cart :products="cart"/>
                     </div>
                 </template>
             </modal>
@@ -70,12 +58,13 @@
 </template>
 
 <script>
-   import Modal from './partials/Modal';
-   import Currency from './Currency';
-    
+    import Modal from './partials/Modal';
+    import Currency from './Currency';
+    import Cart from './Cart';
+
     export default {
         components: {
-            Modal, Currency
+            Modal, Currency, Cart
         },
 
         props: { 

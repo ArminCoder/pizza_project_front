@@ -6,7 +6,7 @@
                     {{header}}
                 </h2>
                 <div>
-                    <div style="grid-template-columns: repeat(4,1fr); display: grid;">
+                    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
                         <pizza 
                             @choosePizza="choosePizza(pizza)"
                             v-for="pizza in pizzas" 
