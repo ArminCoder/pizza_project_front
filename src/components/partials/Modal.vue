@@ -1,6 +1,6 @@
 <template>
     <transition name="modal-fade">
-        <div class="modal-backdrop">
+        <div class="modal-backdrop z-10">
             <div class="modal"
                 role="dialog"
                 aria-labelledby="modalTitle"

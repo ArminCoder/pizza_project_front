@@ -100,6 +100,7 @@ export default {
                 image: '',
                 quantity: 1
             },
+            productId: 0,
             modal: {
                 open: false
             }
@@ -108,7 +109,17 @@ export default {
 
     methods: {
         addToCart() {
-            this.$emit('addToCart', this.chosenPizza);
+            let products = [];
+            if(localStorage.getItem('products')){
+                products = JSON.parse(localStorage.getItem('products'));
+            }
+
+            this.productId += 1;
+            products.push({'productId' : this.productId, pizza : this.chosenPizza});
+
+            this.$emit('updatedCart');
+
+            localStorage.setItem('products', JSON.stringify(products));
         },
 
         choosePizza(pizza) {

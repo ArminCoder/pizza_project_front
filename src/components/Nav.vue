@@ -20,7 +20,7 @@
                         <a>
                             <span 
                                 v-if="cart.length"
-                                class="h6 text-primary"
+                                class="h6 text-primary mr-2"
                                 v-text="cart.length"
                             />
                             <i 
@@ -58,7 +58,7 @@
                             </span>
                             <br>
                             <span>
-                                {{item.price.toFixed(2) }} {{currency}}
+                                {{item.price ? item.price.toFixed(2) : null }} {{activeCurrency.currency}}
                             </span>
 
                         </div>
@@ -79,11 +79,6 @@
         },
 
         props: { 
-            cart: {
-                type: Array,
-                required: false
-            },
-
             currencies: {
                 default: {}
             },
@@ -91,6 +86,10 @@
             activeCurrency: {
                 default: {}
             },
+
+            cart: {
+                default: []
+            }
         },
 
         data() {
@@ -100,7 +99,7 @@
                     title: null,
                     content: null,
                     footer: null
-                }
+                },
             }
         },
 

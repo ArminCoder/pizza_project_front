@@ -2,9 +2,9 @@
     <div id="app" class="container-fluid">
         <navigation 
             v-if="activeCurrency && currencies"
-            :cart="cart" 
             :activeCurrency="activeCurrency"
             :currencies="currencies"
+            :cart="cart"
 
         />
         <slider 
@@ -12,7 +12,7 @@
             :pizzas="pizzas" 
         />
         <products 
-            @addToCart="addToCart" 
+            @updatedCart="getCartLocalStorage" 
             v-if="pizzas && activeCurrency" 
             :pizzas="pizzas"
             :activeCurrency="activeCurrency"
@@ -62,9 +62,17 @@ import {eventBus} from './main';
         created() {
             this.getPizzas();
             this.getCurrencyRates();
+            this.getCartLocalStorage();
+
         },
 
         methods: {
+            getCartLocalStorage() {
+                if(window.localStorage.getItem('products')) {
+                    this.cart = JSON.parse(window.localStorage.getItem('products'));
+                }
+            },
+
             getCurrencyRates() {
                 this.axios.get('http://localhost:8000/api/currencies').then(res => {
                     this.currencies = res.data;
