@@ -128,6 +128,7 @@ export default {
             this.chosenPizza.name = pizza.name;
             this.chosenPizza.price = pizza.price;
             this.chosenPizza.image = pizza.image;
+            this.modalValue = pizza
         }
     }
 }
@@ -138,7 +139,40 @@ export default {
 <style lang="scss" >
 .vueperslides__arrow {
     background: rgba(0,0,0,0.7);
+    z-index: -1;
 }
+
+.bestdisheswrapper #bestdishes h2::after {
+    content: url(/images/rectangle.png);
+    position: relative;
+    margin-left: 15px;
+    top: -10px;
+    z-index: -1;
+    min-height: 442px;
+    max-height: 440px;
+    background-size: cover;
+    border-top: 3px solid rgba(255, 153, 0, 0.2);
+    border-bottom: 3px solid rgba(255, 153, 0, 0.4);
+    text-align: center;
+}
+
+.bestdisheswrapper {
+    min-height: 442px;
+    background: url(/images/www3.jpg) no-repeat center center fixed;
+    background-size: cover;
+    border-top: 3px solid rgba(255, 153, 0, 0.2);
+    border-bottom: 3px solid rgba(255, 153, 0, 0.4);
+    text-align: center;
+    filter: brightness(0.8);
+    -webkit-box-shadow: 10px -10px 66px -12px rgb(0, 0, 0);
+    -moz-box-shadow: 10px -10px 66px -12px rgb(0, 0, 0);
+    box-shadow: 10px -10px 66px -12px rgb(0, 0, 0);
+
+}
+
+
+
+
 
 </style>
 

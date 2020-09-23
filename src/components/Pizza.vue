@@ -41,6 +41,8 @@
 
 <style lang="scss" scoped>
     .pizzaImage {
-        max-width: 200px;
+        max-width: 300px;
+        height: 300px;
+        object-fit: contain;
     }
 </style>

@@ -2,7 +2,7 @@
 
     <footer class="page-footer font-small blue">
         <div class="footer- text-center py-3">
-            <span>© {{year}}</span>
+            <span class="mr-2">© {{year}}</span>
             <span>Pizza Project</span>
         </div>
     </footer>
