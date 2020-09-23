@@ -1,8 +1,8 @@
 <template>
-    <footer class="page-footer font-small bg-black">
-        <div class="footer- text-center py-3 text-white">
-            <span class="mr-2">© {{year}}</span>
-            <span>Pizza Project</span>
+    <footer class="page-footer font-small bg-black fixed bottom-0 w-full">
+        <div class="footer- text-center text-white">
+            <span class="mr-2 text-sm">© {{year}}</span>
+            <span class="text-sm">Pizza Project</span>
         </div>
     </footer>
 </template>

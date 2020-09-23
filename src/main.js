@@ -11,13 +11,15 @@ import '@/assets/css/tailwind.css'
 // font awesome
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import router from './router'
 
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 
-export const eventBus = new Vue(); 
+export const eventBus = new Vue();
 
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
