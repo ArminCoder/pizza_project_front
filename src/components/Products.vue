@@ -30,10 +30,10 @@
             </template>
             <template v-slot:content>
                 <div class="flex p-4 mr-4">
-                    <div class="w-50">
+                    <div class="w-1/2">
                         <img style="max-width: 100%" :src="chosenPizza.image" alt="">
                     </div>
-                    <div class="flex flex-col align-start justify-start text-left ml-4 pl-4">
+                    <div class="w-1/2">
                         <div class="flex">
                             <span class="mr-2">Price:</span>
                             <span>{{chosenPizza.price * activeCurrency.rate}}</span>
@@ -139,7 +139,6 @@ export default {
 <style lang="scss" >
 .vueperslides__arrow {
     background: rgba(0,0,0,0.7);
-    z-index: -1;
 }
 
 .bestdisheswrapper #bestdishes h2::after {
@@ -147,7 +146,6 @@ export default {
     position: relative;
     margin-left: 15px;
     top: -10px;
-    z-index: -1;
     min-height: 442px;
     max-height: 440px;
     background-size: cover;

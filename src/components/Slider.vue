@@ -4,7 +4,7 @@
             <div id="slider">
                 <div class="slider">
                     <vueper-slides fade :touchable="false">
-                        <vueper-slide @click.native="pizzaInfo(slide)" style='margin-top:-100px;' v-for="(slide, i) in slides" :key="i" :content="slide.content" />
+                        <vueper-slide @click.native="pizzaInfo($event, slide)" style='margin-top:-100px;' v-for="(slide, i) in slides" :key="i" :content="slide.content" />
                     </vueper-slides>
                 </div>
             </div> 
@@ -64,7 +64,10 @@ export default {
     },
 
     methods: {
-        pizzaInfo(pizza) {
+        pizzaInfo(e, pizza) {
+            if(e.target.tagName != 'IMG') {
+                return;
+            }
             let pizzaTitle = pizza.title.replace(/<\/?[^>]+(>|$)/g, "");
             this.modal.open = true;
             this.pizzas.forEach((pizza) => {
@@ -90,7 +93,6 @@ export default {
     .vueperslides__arrow {
         background: rgba(0,0,0,0.7);
         height:100px;
-        z-index: 4;
     }
     .modal {
     background: #FFFFFF;
@@ -105,11 +107,4 @@ export default {
     filter: brightness(0.9);
 
 }
-
-.modal-backdrop{
-    z-index: 2;
-}
-
-   
-    
 </style>
