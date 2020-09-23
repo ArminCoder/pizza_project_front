@@ -6,6 +6,8 @@ import VueAxios from 'vue-axios'
 
 import '@/assets/css/tailwind.css'
 
+
+
 Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false

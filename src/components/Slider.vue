@@ -90,5 +90,26 @@ export default {
     .vueperslides__arrow {
         background: rgba(0,0,0,0.7);
         height:100px;
+        z-index: 4;
     }
+    .modal {
+    background: #FFFFFF;
+    box-shadow: 2px 2px 20px 1px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    max-height: 800px;
+    position: absolute;
+    border-radius:30px;
+    filter: brightness(0.9);
+
+}
+
+.modal-backdrop{
+    z-index: 2;
+}
+
+   
+    
 </style>
