@@ -62,14 +62,19 @@
                             Total: 
                             <span class="ml-2">{{chosenPizza.price * activeCurrency.rate * chosenPizza.quantity}} {{activeCurrency.currency}}</span>
                         </div>
-                        <div class="mt-4">
-                            <button @click="addToCart" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                                Add To Cart
-                            </button>
-                        </div>
                     </div>
                 </div>
             </template>
+            <template v-slot:footer>
+                <div class="w-full flex justify-between">
+                    <button @click="closeModal" class="bg-gray-300 hover:bg-gray-600 text-gray-600 hover:text-white font-bold py-2 px-4 border border-gray-300 rounded">
+                        Close
+                    </button>
+                    <button @click="addToCart" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                        Add To Cart
+                    </button>
+                </div>
+            </template>    
         </modal>
     </div>
 </template>
@@ -131,6 +136,8 @@ export default {
     
                 localStorage.setItem('products', JSON.stringify(products));
             }
+
+            this.$swal('Success!', `${this.chosenPizza.name} added to cart.`);
 
             eventBus.$emit('updatedCart');
 

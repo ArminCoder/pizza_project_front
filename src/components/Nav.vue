@@ -35,16 +35,43 @@
     <modal 
         class="flex px-4 py-2 leading-none rounded text-white mt-4 lg:mt-0" 
         v-show="modal.open" 
-        @close="modal.open = false"
+        :customStyle="checkoutStyle"
+        @close="modal.open = false; checkout = false"
     >
         <template v-slot:title>
-            Your Shopping Cart
+            <span class="text-xl" v-if="!checkout">
+                Your Shopping Cart
+            </span>
+            <span class="text-xl" v-else>
+                Checkout
+            </span>
         </template>
         <template v-slot:content>
-            <div>
+            <div v-if="!checkout">
                 <cart @productRemoved="updateCart" :products="cart" :activeCurrency="activeCurrency" />
             </div>
+            <div v-else>
+                <order @checkout="closeModal" :products="cart" :activeCurrency="activeCurrency" />
+            </div>
         </template>
+        <template v-slot:footer>
+            <div v-if="!checkout" class="w-full flex justify-between">
+                <button @click="closeModal" class="bg-gray-300 hover:bg-gray-600 text-gray-600 hover:text-white font-bold py-2 px-4 border border-gray-300 rounded">
+                    Close
+                </button>
+                <button @click="toCheckout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    Go to checkout
+                </button>
+            </div>
+            <div v-else class="w-full flex justify-between">
+                <button @click="checkout = false" class="bg-gray-300 hover:bg-gray-600 text-gray-600 hover:text-white font-bold py-2 px-4 border border-gray-300 rounded">
+                    Cancel
+                </button>
+                <button @click="placeOrder" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                    Place Order
+                </button>
+            </div>
+        </template>  
     </modal>
 </div>
 </template>
@@ -53,13 +80,15 @@
 import Modal from './partials/Modal';
 import Currency from './Currency';
 import Cart from './Cart';
+import Order from './Order';
 import {eventBus} from '../main';
 
 export default {
     components: {
         Modal,
         Currency,
-        Cart
+        Cart,
+        Order
     },
 
     props: {
@@ -80,12 +109,28 @@ export default {
                 content: null,
                 footer: null
             },
+            checkout: false,
             cart: null,
-            hasItems: null
+            hasItems: null,
+            checkoutStyle: ''
         }
     },
 
     methods: {
+        toCheckout() {
+            this.checkout = true;
+            this.checkoutStyle = 'min-width: 80vw'
+        },
+
+        closeModal() {
+            this.modal.open = false;
+            this.checkout = false;
+        },
+
+        placeOrder() {
+
+        },
+
         getCartLocalStorage() {
             if (window.localStorage.getItem('products')) {
                 this.cart = JSON.parse(window.localStorage.getItem('products'));
@@ -99,7 +144,7 @@ export default {
 
         updateCart() {
             this.getCartLocalStorage();
-        }
+        },
     },
     
      mounted() {

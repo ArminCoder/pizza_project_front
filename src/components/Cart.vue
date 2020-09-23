@@ -44,8 +44,6 @@
 
         methods: {
             removeItem(item, index) {
-                console.log(item, index);
-
                 this.pizzas.splice(index, 1);
                 localStorage.setItem('products', JSON.stringify(this.pizzas));
 
