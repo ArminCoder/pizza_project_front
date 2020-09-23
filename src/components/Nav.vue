@@ -25,10 +25,10 @@
                 </div>
                 <div class="w-1/2 flex-grow flex items-center justify-end ">
                     <a @click="showCart" href="#responsive-header" class="block mt-4 lg:inline-block ml-10 lg:mt-0 font-sans text-lg text-teal-200 hover:text-white mr-4">
-                        <span v-if="cart.length" class="h6 text-primary" v-text="cart.length" />
+                        <span v-if="cart.length" class="h6 text-primary mr-2" v-text="cart.length" />
                         <i class="fa fa-shopping-cart" :class="{ 'text-primary' : cart.length }" />
                     </a>
-                    <a class="">
+                    <a class="-mb-2">
                         <currency :activeCurrency="activeCurrency" :currencies="currencies" />
                     </a>
                 </div>
@@ -107,10 +107,9 @@ export default {
 
 <style lang="scss" scoped>
 .headerwrapper {
-    background-color: transparent;
-}
-
-nav {
-    opacity: 0.9;
+    height: 55px;
+    nav {
+        height: 55px;
+    }
 }
 </style>

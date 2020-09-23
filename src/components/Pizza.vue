@@ -1,11 +1,11 @@
 <template>
-    <div @click="$emit('choosePizza')" class="my-2">
+    <div @click="$emit('choosePizza')" class="my-2 cursor-pointer">
        <div class="mb-2">
            <img class="pizzaImage" :src="image">
        </div>
-       <span class="text-light h3">{{name}}</span>
+       <span class="text-white text-2xl">{{name}}</span>
        <br>
-       <span class="text-white h4 my-2">Price: {{(price * activeCurrency.rate).toFixed(2)}} {{activeCurrency.symbol}}</span>
+       <span class="text-white text-2xl my-2">Price: {{(price * activeCurrency.rate).toFixed(2)}} {{activeCurrency.symbol}}</span>
     </div>
 </template>
 
@@ -42,7 +42,7 @@
 <style lang="scss" scoped>
     .pizzaImage {
         max-width: 300px;
-        height: 300px;
+        height: 250px;
         object-fit: contain;
     }
 </style>
