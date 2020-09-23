@@ -40,9 +40,11 @@
 </script>
 
 <style lang="scss" scoped>
+
     .pizzaImage {
         max-width: 300px;
         height: 250px;
         object-fit: contain;
     }
+    
 </style>

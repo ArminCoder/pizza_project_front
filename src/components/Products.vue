@@ -59,7 +59,7 @@
                             <span class="ml-2">{{chosenPizza.price * activeCurrency.rate * chosenPizza.quantity}} {{activeCurrency.currency}}</span>
                         </div>
                         <div class="mt-4">
-                            <button @click="addToCart" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                            <button @click="addToCart" class="shadow bg-blue-900 hover:bg-red-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
                                 Add To Cart
                             </button>
                         </div>
@@ -137,6 +137,11 @@ export default {
 </script>
 
 <style lang="scss" >
+
+.body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .vueperslides__arrow {
     background: rgba(0,0,0,0.7);
 }

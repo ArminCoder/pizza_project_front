@@ -34,11 +34,10 @@
                 <slot name="footer">
                 <button
                     type="button"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded px-4 py-2 "
                     @click="close"
                     aria-label="Close modal"
                 >
-                    Close
+                    <img class='closeIcon' src="/images/close.png" />
                 </button>
                 </slot>
             </footer>
@@ -59,6 +58,14 @@
 </script>
 
 <style>
+
+.closeIcon{
+  height: 30px;
+  width: 30px;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+
   .modal-backdrop {
     position: fixed;
     top: 0;
