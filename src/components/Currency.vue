@@ -1,6 +1,11 @@
 <template>
     <div>
-        <select v-if="currentCurrency" class="shadow appearance-none border text-sm border-white bg-black rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" @change="changeCurrency" v-model="currencyName">
+        <select 
+            v-if="currentCurrency" 
+            class="cursor-pointer border text-sm border-white bg-black rounded w-full py-2 px-3 text-white mb-3 leading-tight focus:outline-none focus:shadow-outline" 
+            @change="changeCurrency" 
+            v-model="currencyName"
+        >
             <option v-for="currency in currencies" :key="currency.id" :value="currency.currency">
                 {{currency.currency}} {{currency.symbol}}
             </option>

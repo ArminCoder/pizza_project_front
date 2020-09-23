@@ -23,7 +23,7 @@
         </div>
         <modal
             v-show="modal.open"
-            @close="modal.open = false"
+            @close="closeModal"
         >
             <template v-slot:title>
                 {{chosenPizza.name}}
@@ -41,7 +41,11 @@
                         </div>
                         <div class="mt-4 flex">
                             <span class="flex">Quantity: </span>
-                            <select v-model="chosenPizza.quantity" class="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ml-2" name="quantity">
+                            <select 
+                                v-model="chosenPizza.quantity" 
+                                class="ml-4 h-12 -mt-2 block w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                                name="quantity"
+                            >
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -73,6 +77,8 @@
 <script>
 import Modal from './partials/Modal';
 import Pizza from './Pizza';
+import {eventBus} from '../main';
+
 
 export default {
     components: {
@@ -93,7 +99,7 @@ export default {
 
     data() {
         return {
-            header: 'Pizzas',
+            header: 'Order Pizzas',
             chosenPizza: {
                 name: '',
                 price: null,
@@ -108,18 +114,27 @@ export default {
     },
 
     methods: {
+        closeModal() {
+            this.modal.open = false;
+            this.chosenPizza.quantity = 1;
+        },
+
         addToCart() {
             let products = [];
             if(localStorage.getItem('products')){
                 products = JSON.parse(localStorage.getItem('products'));
             }
 
-            this.productId += 1;
-            products.push({'productId' : this.productId, pizza : this.chosenPizza});
+            for(let i = 0; i < this.chosenPizza.quantity; i++) {
+                this.productId += 1;
+                products.push({'productId' : this.productId, pizza : this.chosenPizza});
+    
+                localStorage.setItem('products', JSON.stringify(products));
+            }
 
-            this.$emit('updatedCart');
+            eventBus.$emit('updatedCart');
 
-            localStorage.setItem('products', JSON.stringify(products));
+            this.closeModal();
         },
 
         choosePizza(pizza) {

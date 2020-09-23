@@ -77,6 +77,7 @@
     overflow-x: auto;
     display: flex;
     flex-direction: column;
+    min-width: 50vw;
     max-width: 80vw;
     max-height: 80vh;
     position: static;

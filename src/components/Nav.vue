@@ -17,21 +17,23 @@
         <div class="w-1/2 block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
                 <router-link class="block mx-2 mt-8 lg:inline-block font-sans text-lg  lg:mt-0 text-teal-200 hover:text-white " to="/">Home</router-link> 
-                <router-link class="block mx-2 mt-8 lg:inline-block font-sans text-lg  lg:mt-0 text-teal-200 hover:text-white " to="/about">Contact us</router-link>
+                <router-link class="block mx-2 mt-8 lg:inline-block font-sans text-lg  lg:mt-0 text-teal-200 hover:text-white " to="/contact">Contact us</router-link>
             </div>
-            <div class="w-1/2 flex-grow flex items-center justify-end ">
+            <div class="w-1/2 flex-grow flex items-center justify-end cursor-pointer">
                 <a @click="showCart" class="mr-4 block mt-4 lg:inline-block  lg:mt-0 font-sans text-lg text-teal-200 hover:text-white ">
-                    <span v-if="cart.length" class="h6 text-primary mr-2" v-text="cart.length" />
-                    <i class="fa fa-shopping-cart" :class="{ 'text-primary' : cart.length }" />
+                    <span v-if="hasItems" class="h6 text-primary mr-2">
+                        {{hasItems}}
+                    </span>    
+                    <i class="fa fa-shopping-cart" :class="{ 'text-primary' : hasItems }" />
                 </a>
-                <a class="-mb-2">
+                <a class="-mb-2 cursor-pointer">
                     <currency :activeCurrency="activeCurrency" :currencies="currencies" />
                 </a>
             </div>
         </div>
     </nav>
     <modal 
-        class="flex text-sm px-4 py-2 leading-none rounded text-white mt-4 lg:mt-0" 
+        class="flex px-4 py-2 leading-none rounded text-white mt-4 lg:mt-0" 
         v-show="modal.open" 
         @close="modal.open = false"
     >
@@ -39,11 +41,8 @@
             Your Shopping Cart
         </template>
         <template v-slot:content>
-            <span class="d-flex pl-4" v-if="!cart.length">
-                You currently don't have any items in your shopping cart...
-            </span>
-            <div v-else>
-                <cart :products="cart" />
+            <div>
+                <cart @productRemoved="updateCart" :products="cart" :activeCurrency="activeCurrency" />
             </div>
         </template>
     </modal>
@@ -54,6 +53,7 @@
 import Modal from './partials/Modal';
 import Currency from './Currency';
 import Cart from './Cart';
+import {eventBus} from '../main';
 
 export default {
     components: {
@@ -69,10 +69,6 @@ export default {
 
         activeCurrency: {
             default: {}
-        },
-
-        cart: {
-            default: []
         }
     },
 
@@ -84,14 +80,35 @@ export default {
                 content: null,
                 footer: null
             },
+            cart: null,
+            hasItems: null
         }
     },
 
     methods: {
+        getCartLocalStorage() {
+            if (window.localStorage.getItem('products')) {
+                this.cart = JSON.parse(window.localStorage.getItem('products'));
+                this.hasItems = this.cart.length;
+            }
+        },
+
         showCart() {
             this.modal.open = true;
+        },
+
+        updateCart() {
+            this.getCartLocalStorage();
         }
     },
+    
+     mounted() {
+        this.getCartLocalStorage();
+
+        eventBus.$on('updatedCart', () => {
+            this.getCartLocalStorage();
+        });
+    }
 }
 </script>
 

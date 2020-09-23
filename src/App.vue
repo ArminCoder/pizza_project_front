@@ -1,6 +1,11 @@
 <template>
 <div id="app" class="container-fluid pb-6">
-    <navigation v-if="activeCurrency && currencies" :activeCurrency="activeCurrency" :currencies="currencies" :cart="cart" />
+    <navigation 
+        @updatedCart="getCartLocalStorage" 
+        v-if="activeCurrency && currencies" 
+        :activeCurrency="activeCurrency" 
+        :currencies="currencies" 
+    />
     <router-view />
     <footer-component/>
 </div>
@@ -22,7 +27,6 @@ export default {
 
     created() {
         this.getCurrencyRates();
-        this.getCartLocalStorage();
     },
 
     methods: {

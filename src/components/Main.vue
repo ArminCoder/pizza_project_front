@@ -5,7 +5,6 @@
             :pizzas="pizzas" 
         />
         <products 
-            @updatedCart="getCartLocalStorage" 
             v-if="pizzas && activeCurrency" 
             :pizzas="pizzas"
             :activeCurrency="activeCurrency"
@@ -28,7 +27,7 @@ import Modal from './partials/Modal.vue';
 import {eventBus} from '../main';
 
     export default {
-        name: 'App',
+        name: 'Main',
 
         components: {
             Slider, Products, Modal
@@ -43,8 +42,6 @@ import {eventBus} from '../main';
                     content: null,
                     footer: null
                 },
-                cart: [],
-                currencies: {},
                 activeCurrency: null
             }
         },
@@ -52,16 +49,9 @@ import {eventBus} from '../main';
         created() {
             this.getPizzas();
             this.getCurrencyRates();
-            this.getCartLocalStorage();
-        },
+        },    
 
         methods: {
-            getCartLocalStorage() {
-                if(window.localStorage.getItem('products')) {
-                    this.cart = JSON.parse(window.localStorage.getItem('products'));
-                }
-            },
-
             getCurrencyRates() {
                 this.axios.get('http://localhost:8000/api/currencies').then(res => {
                     this.currencies = res.data;
@@ -71,10 +61,6 @@ import {eventBus} from '../main';
                         }
                     });
                 })
-            },
-
-            addToCart(e) {
-                this.cart.push(e);
             },
 
             getPizzas() {
