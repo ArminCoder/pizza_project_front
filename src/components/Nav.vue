@@ -82,7 +82,6 @@ import Currency from './Currency';
 import Cart from './Cart';
 import Order from './Order';
 import {eventBus} from '../main';
-import axios from 'axios';
 
 export default {
     components: {
@@ -123,22 +122,28 @@ export default {
         },
 
         startOrder(customer) {
-            let config = {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Content-Type': 'application/json',
-                },
-            };
+            let config = {	
+                headers: {	
+                    'Access-Control-Allow-Origin': '*',	
+                    'Content-Type': 'application/json',	
+                },	
+            };	
 
-            axios({
-                method: 'post',
-                url: 'http://localhost:8000/api/place-order',
-                data : {
-                    customer: customer,
-                    order: this.cart
-                },
-                config
-            });
+            this.axios({	
+                method: 'post',	
+                url: 'http://localhost:8000/api/place-order',	
+                data : {	
+                    customer: customer,	
+                    order: this.cart	
+                },	
+                config	
+            })
+                
+            this.$swal('Success', 'Your order was successfully placed!');
+            
+            localStorage.removeItem('products');
+
+            this.getCartLocalStorage();
         },
 
         toCheckout() {
