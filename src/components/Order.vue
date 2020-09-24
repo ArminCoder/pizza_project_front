@@ -6,14 +6,15 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                         First Name <span class="text-red-500">*</span>
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text">
+                    <input v-model='customer.name' class="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text">
                     <p v-if="errors.name" class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
                 <div class="w-full md:w-1/2 px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                         Last Name <span class="text-red-500">*</span>
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text">
+                    <input v-model='customer.lname' class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text">
+                    <p v-if="errors.lname" class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -21,7 +22,8 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                         Address <span class="text-red-500">*</span>
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="address" type="email">
+                    <input v-model='customer.address' class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="address" type="email">
+                    <p v-if="errors.address" class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -29,7 +31,8 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                         Phone <span class="text-red-500">*</span>
                     </label>
-                    <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="phone" type="phone">
+                    <input v-model='customer.phone' class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="phone" type="phone">
+                    <p v-if="errors.phone" class="text-red-500 text-xs italic">Please fill out this field.</p>
                 </div>
             </div>
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -37,12 +40,12 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                         Message
                     </label>
-                    <textarea class="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-20 resize-none" id="message"></textarea>
+                    <textarea v-model='customer.message' class="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-20 resize-none" id="message"></textarea>
                     <p class="text-gray-600 text-xs italic w-full text-left pl-2">* - required fields  </p>
                 </div>
             </div>
         </form>
-        <div class="flex flex-col pl-4 w-full mb-12 justify-end">
+        <div class="flex flex-col pl-4 w-full ml-12 mb-12 justify-end">
             <div class="border-b border-gray-500 pb-2">
                 <span class="text-bold text-black">{{products.length}} items</span>
             </div>
@@ -82,12 +85,15 @@ export default {
 
     data() {
         return {
-            errors: {
-                name: false,
-                lname: false,
-                address: false,
-                phone: false,
+            errors: {},
+
+            customer: {
+                name: '',
+                lname: '',
+                address: '',
+                phone: '',
             },
+
             productsPrice: 0,
             shipping: 10,
             totalPrice: 0
@@ -105,6 +111,30 @@ export default {
             })
 
             this.totalPrice = this.productsPrice + this.shipping;
+        },
+
+        verifyOrder() {
+            this.errors = {};
+
+            if(!this.customer.name) {
+                this.errors.name = true;
+                this.$emit('error', this.errors);
+            }
+            else if(!this.customer.lname) {
+                this.errors.lname = true;
+                this.$emit('error', this.errors);
+            }
+            else if(!this.customer.address) {
+                this.errors.address = true;
+                this.$emit('error', this.errors);
+            }
+            else if(!this.customer.phone) {
+                this.errors.phone = true;
+                this.$emit('error', this.errors);
+            }
+            else {
+                this.$emit('startOrder', this.customer);
+            }
         }
     }
 }

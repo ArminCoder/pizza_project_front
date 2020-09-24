@@ -51,7 +51,7 @@
                 <cart @productRemoved="updateCart" :products="cart" :activeCurrency="activeCurrency" />
             </div>
             <div v-else>
-                <order @checkout="closeModal" :products="cart" :activeCurrency="activeCurrency" />
+                <order @error='onError' @startOrder='startOrder' ref='order' @checkout="closeModal" :products="cart" :activeCurrency="activeCurrency" />
             </div>
         </template>
         <template v-slot:footer>
@@ -117,6 +117,18 @@ export default {
     },
 
     methods: {
+        onError() {
+            this.$swal('Error', 'Please fill in all required input fields.');
+        },
+        startOrder(customer) {
+            let data = {
+                customer: customer,
+                order: this.cart
+            }
+            this.axios.post('http://localhost:8000/api/place-order', data).then(res => {
+                console.log('RES', res);
+            })
+        },
         toCheckout() {
             this.checkout = true;
             this.checkoutStyle = 'min-width: 80vw'
@@ -128,7 +140,7 @@ export default {
         },
 
         placeOrder() {
-
+            this.$refs.order.verifyOrder();
         },
 
         getCartLocalStorage() {
