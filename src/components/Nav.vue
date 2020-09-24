@@ -121,14 +121,30 @@ export default {
             this.$swal('Error', 'Please fill in all required input fields.');
         },
         startOrder(customer) {
-            let data = {
-                customer: customer,
-                order: this.cart
-            }
-            this.axios.post('http://localhost:8000/api/place-order', data).then(res => {
-                console.log('RES', res);
+            let config = {	
+                headers: {	
+                    'Access-Control-Allow-Origin': '*',	
+                    'Content-Type': 'application/json',	
+                },	
+            };	
+
+            this.axios({	
+                method: 'post',	
+                url: 'http://localhost:8000/api/place-order',	
+                data : {	
+                    customer: customer,	
+                    order: this.cart	
+                },	
+                config	
             })
+                
+            this.$swal('Success', 'Your order was successfully placed!');
+            
+            localStorage.removeItem('products');
+
+            this.getCartLocalStorage();
         },
+
         toCheckout() {
             this.checkout = true;
             this.checkoutStyle = 'min-width: 80vw'
