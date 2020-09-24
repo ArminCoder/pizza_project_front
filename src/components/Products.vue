@@ -137,7 +137,7 @@ export default {
                 localStorage.setItem('products', JSON.stringify(products));
             }
 
-            this.$swal('Success!', `${this.chosenPizza.name} added to cart.`);
+            this.$swal('Success!', 'Pizza added to cart.');
 
             eventBus.$emit('updatedCart');
 

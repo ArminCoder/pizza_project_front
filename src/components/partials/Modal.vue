@@ -19,7 +19,7 @@
             </section>
             <footer class="modal-footer">
                 <slot name="footer">
-                    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded px-4 py-2 " @click="close" aria-label="Close modal">
+                    <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold border border-blue-700 rounded px-4 py-2 " @click="close" aria-label="Close modal">
                         Close
                     </button>
                 </slot>

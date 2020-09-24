@@ -578,8 +578,6 @@ iframe {
     left: 0px;
 }
 
-/*||||||||||||||||||||||||||||||||| CONTACT US ||||||||||||||||||||||||||||||*/
-
 .contactwrapper {
     margin-top: 50px;
     text-align: center;

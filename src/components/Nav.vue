@@ -82,6 +82,7 @@ import Currency from './Currency';
 import Cart from './Cart';
 import Order from './Order';
 import {eventBus} from '../main';
+import axios from 'axios';
 
 export default {
     components: {
@@ -110,7 +111,7 @@ export default {
                 footer: null
             },
             checkout: false,
-            cart: null,
+            cart: [],
             hasItems: null,
             checkoutStyle: ''
         }
@@ -120,16 +121,31 @@ export default {
         onError() {
             this.$swal('Error', 'Please fill in all required input fields.');
         },
+
         startOrder(customer) {
-            let data = {
-                customer: customer,
-                order: this.cart
-            }
-            this.axios.post('http://localhost:8000/api/place-order', data).then(res => {
-                console.log('RES', res);
-            })
+            let config = {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Content-Type': 'application/json',
+                },
+            };
+
+            axios({
+                method: 'post',
+                url: 'http://localhost:8000/api/place-order',
+                data : {
+                    customer: customer,
+                    order: this.cart
+                },
+                config
+            });
         },
+
         toCheckout() {
+            if(!this.cart) {
+                this.$swal('Error', 'You do not have any items in the cart.')
+                return;
+            }
             this.checkout = true;
             this.checkoutStyle = 'min-width: 80vw'
         },
@@ -143,10 +159,17 @@ export default {
             this.$refs.order.verifyOrder();
         },
 
+        // getCartLocalStorage() {
+        //     if (window.localStorage.getItem('products')) {
+        //         this.cart = JSON.parse(window.localStorage.getItem('products'));
+        //         this.hasItems = this.cart.length;
+        //     }
+        // },
+
         getCartLocalStorage() {
             if (window.localStorage.getItem('products')) {
-                this.cart = JSON.parse(window.localStorage.getItem('products'));
-                this.hasItems = this.cart.length;
+                let cart = JSON.parse(window.localStorage.getItem('products'));
+                this.cart = cart;
             }
         },
 
@@ -155,12 +178,13 @@ export default {
         },
 
         updateCart() {
-            this.getCartLocalStorage();
+            console.log('check');
+            // this.getCartLocalStorage();
         },
     },
     
      mounted() {
-        this.getCartLocalStorage();
+        // this.getCartLocalStorage();
 
         eventBus.$on('updatedCart', () => {
             this.getCartLocalStorage();
