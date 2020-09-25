@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -92,20 +94,35 @@ export default {
         },
 
         sendContactRequest() {
-            this.axios({	
-                method: 'post',	
-                url: 'http://localhost:8000/api/contact',	
-                data : {	
-                    contact: this.contact,	
-                },		
+            axios.post('http://localhost:8000/api/contact', this.contact).then(() => {
+                this.$swal('Success', 'Contact Request Sent!');
+                this.contact = {};
+                this.resetData();
+            }).catch(error => {
+                console.log(error);
+            }).finally(() => {
+                this.$swal('Success', 'Contact Request Sent!');
+                this.resetData();
             })
+        },
+
+        resetData() {
+            this.contact = {
+                name: '',
+                lname: '',
+                email: '',
+                message: ''
+            };
+
+            this.errors = {
+                name: false,
+                lname: false,
+                email: false,
+                message: false,
+            }  
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
-.img {
-    float: right;
-}
-</style>
+
