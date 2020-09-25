@@ -51,7 +51,7 @@
                 <cart @productRemoved="updateCart" :products="cart" :activeCurrency="activeCurrency" />
             </div>
             <div v-else>
-                <order @error='onError' @startOrder='startOrder' ref='order' @checkout="closeModal" :products="cart" :activeCurrency="activeCurrency" />
+                <!-- <order @error='onError' @startOrder='startOrder' ref='order' @checkout="closeModal" :products="cart" :activeCurrency="activeCurrency" /> -->
             </div>
         </template>
         <template v-slot:footer>
@@ -80,7 +80,7 @@
 import Modal from './partials/Modal';
 import Currency from './Currency';
 import Cart from './Cart';
-import Order from './Order';
+// import Order from './Order';
 import {eventBus} from '../main';
 
 export default {
@@ -88,7 +88,7 @@ export default {
         Modal,
         Currency,
         Cart,
-        Order
+        // Order
     },
 
     props: {
@@ -110,7 +110,7 @@ export default {
                 footer: null
             },
             checkout: false,
-            cart: [],
+            cart: null,
             hasItems: null,
             checkoutStyle: ''
         }
@@ -164,17 +164,10 @@ export default {
             this.$refs.order.verifyOrder();
         },
 
-        // getCartLocalStorage() {
-        //     if (window.localStorage.getItem('products')) {
-        //         this.cart = JSON.parse(window.localStorage.getItem('products'));
-        //         this.hasItems = this.cart.length;
-        //     }
-        // },
-
         getCartLocalStorage() {
             if (window.localStorage.getItem('products')) {
-                let cart = JSON.parse(window.localStorage.getItem('products'));
-                this.cart = cart;
+                this.cart = JSON.parse(window.localStorage.getItem('products'));
+                this.hasItems = this.cart.length;
             }
         },
 
@@ -183,13 +176,12 @@ export default {
         },
 
         updateCart() {
-            console.log('check');
-            // this.getCartLocalStorage();
+            this.getCartLocalStorage();
         },
     },
     
      mounted() {
-        // this.getCartLocalStorage();
+        this.getCartLocalStorage();
 
         eventBus.$on('updatedCart', () => {
             this.getCartLocalStorage();

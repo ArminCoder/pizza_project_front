@@ -4,7 +4,7 @@
             You currently don't have any items in your shopping cart.
         </div>
     </div>
-    <div v-else || style="max-height: 500px" class="overflow-y-auto">
+    <div v-else style="max-height: 500px" class="overflow-y-auto">
         <div v-for="(item, index) in pizzas" :key="index" class="border-b py-2">
             <div class="flex justify-between items-center">
                 <img class="w-32 h-16" :src="item.pizza.image" alt="">
